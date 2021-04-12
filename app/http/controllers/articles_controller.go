@@ -3,9 +3,11 @@ package controllers
 import (
 	"database/sql"
 	"fmt"
+	"go-blog/app/models/article"
 	"go-blog/pkg/logger"
 	"go-blog/pkg/route"
 	"go-blog/pkg/types"
+	"html/template"
 	"net/http"
 )
 
@@ -19,7 +21,7 @@ func (*ArticlesController) Show(w http.ResponseWriter, r *http.Request) {
 	id := route.GetRouteVariable("id", r)
 
 	// 2. 读取对应的文章数据
-	article, err := getArticleByID(id)
+	article, err := article.Get(id)
 
 	// 3. 如果出现错误
 	if err != nil {
